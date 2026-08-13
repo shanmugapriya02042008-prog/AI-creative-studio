@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Creative Studio</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>✨ AI Creative Studio</h1>
+
+    <p>AI-Powered Creative Content Platform</p>
+
+</header>
+
+
+<!-- ========================= -->
+<!-- LOGIN -->
+<!-- ========================= -->
+
+<section id="loginSection">
+
+    <div class="card">
+
+        <h2>Login</h2>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Enter email ID">
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter your strong password">
+
+        <button onclick="login()">
+            Sign In
+        </button>
+
+        <p id="loginMessage"></p>
+
+        <p>
+            Don't have an account?
+            <button onclick="showRegister()">
+                Register
+            </button>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- REGISTER -->
+<!-- ========================= -->
+
+<section id="registerSection"
+         style="display:none;">
+
+    <div class="card">
+
+        <h2>Create Account</h2>
+
+        <input
+            type="text"
+            id="registerName"
+            placeholder="Enter your name">
+
+        <input
+            type="email"
+            id="registerEmail"
+            placeholder="Enter email ID">
+
+        <input
+            type="password"
+            id="registerPassword"
+            placeholder="Create password">
+
+        <select id="registerRole">
+
+            <option value="Buyer">
+                Buyer
+            </option>
+
+            <option value="Seller">
+                Seller
+            </option>
+
+        </select>
+
+        <button onclick="register()">
+            Create Account
+        </button>
+
+        <p id="registerMessage"></p>
+
+        <button onclick="showLogin()">
+            Back to Login
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- CREATIVE STUDIO -->
+<!-- ========================= -->
+
+<section id="studioSection"
+         style="display:none;">
+
+    <div class="studio">
+
+        <h2>Welcome to AI Creative Studio</h2>
+
+        <p id="welcomeUser"></p>
+
+        <select id="mode">
+
+            <option value="image">
+                🖼 Image Prompt
+            </option>
+
+            <option value="video">
+                🎬 Video Prompt
+            </option>
+
+            <option value="music">
+                🎵 Music Prompt
+            </option>
+
+            <option value="social">
+                📱 Social Media Content
+            </option>
+
+            <option value="advertisement">
+                📢 Advertisement
+            </option>
+
+        </select>
+
+
+        <textarea
+            id="prompt"
+            placeholder="Enter your creative idea...">
+        </textarea>
+
+
+        <button onclick="generateContent()">
+            ✨ Generate
+        </button>
+
+
+        <div id="result">
+
+        </div>
+
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</section>
+
+
+<script src="{{ url_for('static',
+                         filename='script.js') }}">
+</script>
+
+</body>
+
+</html>
