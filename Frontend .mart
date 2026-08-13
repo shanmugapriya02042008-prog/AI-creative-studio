@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shanmuga Priya Mart</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f6fa;
+            margin: 0;
+        }
+
+        header {
+            background: #183b56;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px #aaa;
+        }
+
+        input, button {
+            padding: 12px;
+            margin: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #168aad;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #126782;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 25px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #168aad;
+            color: white;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🛒 SHANMUGA PRIYA MART</h1>
+    <p>Smart Retail Management System</p>
+</header>
+
+<div class="container">
+
+    <h2>Product Purchase</h2>
+
+    <label>Product ID:</label>
+    <input type="number" id="productId">
+
+    <label>Quantity:</label>
+    <input type="number" id="quantity">
+
+    <button onclick="purchaseProduct()">Generate Bill</button>
+
+    <div id="result"></div>
+
+    <h2>Available Products</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Stock</th>
+        </tr>
+
+        <tbody id="productTable"></tbody>
+    </table>
+
+</div>
+
+<script>
+
+function loadProducts() {
+
+    fetch("http://localhost:8080/products")
+    .then(response => response.json())
+    .then(products => {
+
+        let table = "";
+
+        products.forEach(product => {
+
+            table += `
+                <tr>
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>₹${product.price}</td>
+                    <td>${product.stock}</td>
+                </tr>
+            `;
+
+        });
+
+        document.getElementById("productTable").innerHTML = table;
+    });
+}
+
+
+function purchaseProduct() {
+
+    let id = document.getElementById("productId").value;
+    let quantity = document.getElementById("quantity").value;
+
+    fetch("http://localhost:8080/purchase", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            productId: parseInt(id),
+            quantity: parseInt(quantity)
+        })
+
+    })
+
+    .then(response => response.json())
+    .then(data => {
+
+        document.getElementById("result").innerHTML =
+            data.message;
+
+        loadProducts();
+    });
+}
+
+loadProducts();
+
+</script>
+
+</body>
+</html>
